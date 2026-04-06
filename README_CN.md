@@ -1,4 +1,4 @@
-# Claw Agent — 供应商无关的 Python 智能体框架
+# Claw Agent — 基于Python的Claude Code极简纯净学习版
 
 > 现代 CLI 智能体框架，用干净可读的 Python 构建。
 

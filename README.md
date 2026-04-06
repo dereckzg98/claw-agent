@@ -1,4 +1,4 @@
-# Claw Agent — Provider-Agnostic Python Agent Framework
+# Claw Agent — A Minimalist Pure-Python Learning Edition of Claude Code
 
 > A modern CLI agent framework built in clean, readable Python.
 
